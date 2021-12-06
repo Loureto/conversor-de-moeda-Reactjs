@@ -2,20 +2,25 @@
     width: 100%;
     height: auto;
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
 
     .container{
         width: 40%;
-        height: 500px;
+        height: auto;
         display: flex;
-        align-items: center;
-        
+        align-items: center;        
         flex-direction: column;
-        margin-top: -130px;
+        margin-top: -170px;
         background-color: rgb(255, 255, 255);
         border-radius: 1rem;
 
-        -webkit-box-shadow: 0px 0px 1px 1px #E0E1D5; 
+        box-shadow: 0px 0px 1px 1px #E0E1D5; 
+
+        .icon-dollar{
+            margin-top: 20px;
+        }
 
         .content{
             display: flex;
@@ -28,19 +33,40 @@
             flex-direction: column;
             margin-top: 20px;
 
-            input[type="text"]{
-                width: 250px;
-                height: 30px;
-                padding: 0 6px 0 6px;
+            input[type="number"]{
+                width: 300px;
+                height: 45px;
+                padding: 0 6px 0 10px;
                 border-radius: 0.25rem;
+                border: 2px solid #CCCCCC;
+                margin-top: 2px;
+                font-size: 16px;
+                
+                &:focus{
+                    outline: none;
+                    border: 2px solid var(--color-header);
+                }
             }
         }
 
         select{
-            width: 250px;
-            height: 30px;
+            width: 300px;
+            height: 45px;
             border-radius: 0.25rem;
-        }
+            border: 2px solid #CCCCCC;
+            padding-left: 8px;
+            margin-top: 2px;
+            font-size: 16px;
+            outline: none;            
+            
+            &:focus{
+                outline: none;
+                border: 2px solid var(--color-header);
+            }
+        } 
 
+        h1{
+            margin: 20px 0 20px 0;
+        }
     }
 }

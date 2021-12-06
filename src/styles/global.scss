@@ -5,6 +5,15 @@
     font-family: Ubuntu, sans-serif;
 }
 
+body{
+    .load{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+   
+}
 
 :root{
     --color-header: rgb(53, 118, 212);
