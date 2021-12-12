@@ -1,11 +1,9 @@
 .content-converted{
     margin-top: 30px;
-
     animation-name: slide;
     animation-duration: .3s;
     animation-fill-mode: forwards;
     animation-timing-function: linear;
-
     
 @keyframes slide{
     to{

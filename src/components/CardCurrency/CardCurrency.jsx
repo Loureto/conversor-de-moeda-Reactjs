@@ -1,17 +1,14 @@
 import React from 'react';
 import api from '../../services/api';
-
 import { Repeat } from 'react-feather';
 import { DollarSign } from 'react-feather';
-
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
-import '../../styles/button.scss';
-import '../../styles/cardcurrency.scss';
-import '../../styles/converted.scss';
-
-import ReactLoading from 'react-loading';
+import { Loading } from '../Loading/Loading';
+import { InputText } from '../InputText/InputText';
+import { Button } from '../Button/Button';
+import { Label } from '../Label/Label';
+import { Converted } from '../Converted/Converted';
+import { handleClickErro, handleClickSuccess, ToastMsg } from '../../util/mensagem';
+import './cardcurrency.scss';
 
 
 export const CardCurrency = () => {
@@ -28,18 +25,18 @@ export const CardCurrency = () => {
     async function converter(){
         try{        
             if(moedaSelecionada === '' || moedaSelecionada === null){                
-                return toast.error('Selecione o tipo de moeda!');
+                return handleClickErro('Selecione o tipo de moeda!');
             }
             if(moedaBValor === 0 || moedaBValor === ''){
-                return toast.error('Preencha o valor a ser convertido!');
+                return handleClickErro('Preencha o valor a ser convertido!');
             }
 
-            console.log(moedaBValor);
+            handleClickSuccess("Moeda convertida com sucesso!");
             const reponse = await api.get(`all/${moedaSelecionada}-BRL`);            
             let resultado = (reponse.data[moedaSelecionada].ask * parseFloat(moedaBValor));
             setValorConvertido(`R$ ${resultado.toFixed(2)}`);       
         } catch(e){            
-            return toast.error('Error ao tentar converter!');
+            return handleClickErro('Error ao tentar converter!');
         }
     }
 
@@ -65,18 +62,17 @@ export const CardCurrency = () => {
     if(loading){
         return( 
             <div className="load">
-                <ReactLoading className="loading" type="spin" color="blue" />
+                <Loading />
             </div>
         );
     }else{
-    
         return(
             <div className="container-currency" > 
                 <form className="container" onSubmit={handleChange}>
                     <DollarSign className="icon-dollar" size={50}/>
                     <h1>Conversor de Moeda</h1>
                     <div className="content">
-                        <label>Selecione o tipo de moeda:</label>
+                        <Label label="Selecione o tipo de moeda:"/>
                         <select name="currency" id="currency" defaultValue="Selecione..." autoFocus onChange={({target}) => setMoedaSelecionada(target.value)}>
                             <option disabled >Selecione...</option>
                             {moeda.map((item) =>{
@@ -84,25 +80,19 @@ export const CardCurrency = () => {
                             })}                                                                       
                         </select> 
                         <div className="input-text">
-                            <label>Insira o valor a ser convertido:</label>
-                            <input type="number" onChange={({ target }) => setMoedaBValor(target.value)} />                        
+                            <Label label="Insira o valor a ser convertido:"/>
+                            <InputText type="number" onChange={({ target }) => setMoedaBValor(target.value)}/>                        
                         </div>                    
                     </div>
-
-                    <button onClick={converter} className="button">
+                    <Button onClick={converter} label="Converter">
                         <Repeat className="icon-repeat"/>
-                        Converter
-                    </button>               
+                    </Button>                        
                 </form>          
                                     
                 {valorconvertido !== 0 && (                
-                    <div className="content-converted">
-                        <div>
-                            <h2>Moeda convertida: {valorconvertido}</h2>
-                        </div>            
-                    </div>                
+                    <Converted valorconvertido={valorconvertido}/>             
                 )}
-                <ToastContainer theme="dark" position="top-right"/>
+                <ToastMsg />
             </div>
         );
     }
