@@ -1,5 +1,5 @@
 import './inputtext.scss';
 
 export const InputText = (props) =>{
-    return <input className="input-text" onChange={props.onChange} type={props.type} />
+    return <input className="input-text" value={props.value} onChange={props.onChange} type={props.type} />
 }

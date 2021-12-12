@@ -17,6 +17,8 @@ export const CardCurrency = () => {
     const [moedaSelecionada, setMoedaSelecionada] = React.useState('');  
     const [valorconvertido, setValorConvertido] = React.useState(0);
     const [loading, setLoading] = React.useState(true);
+    const [ask, setAsk] = React.useState('');
+    const [name, setName] = React.useState('');
 
     const handleChange = (e) =>{  
         e.preventDefault();           
@@ -34,6 +36,8 @@ export const CardCurrency = () => {
             handleClickSuccess("Moeda convertida com sucesso!");
             const reponse = await api.get(`all/${moedaSelecionada}-BRL`);            
             let resultado = (reponse.data[moedaSelecionada].ask * parseFloat(moedaBValor));
+            setAsk(reponse.data[moedaSelecionada].ask);
+            setName(reponse.data[moedaSelecionada].name);
             setValorConvertido(`R$ ${resultado.toFixed(2)}`);       
         } catch(e){            
             return handleClickErro('Error ao tentar converter!');
@@ -79,19 +83,20 @@ export const CardCurrency = () => {
                                 return <option key={item.key} value={item.value}>{item.label}</option> 
                             })}                                                                       
                         </select> 
-                        <div className="input-text">
                             <Label label="Insira o valor a ser convertido:"/>
-                            <InputText type="number" onChange={({ target }) => setMoedaBValor(target.value)}/>                        
-                        </div>                    
+                            <InputText type="number" onChange={({ target }) => setMoedaBValor(target.value)}/>                                          
                     </div>
                     <Button onClick={converter} label="Converter">
                         <Repeat className="icon-repeat"/>
                     </Button>                        
                 </form>          
-                                    
+                
+                <div className="resultado">
+                    <h2>Resultado</h2>
                 {valorconvertido !== 0 && (                
-                    <Converted valorconvertido={valorconvertido}/>             
+                    <Converted valorconvertido={valorconvertido} value={ask} name={name} />             
                 )}
+                </div>
                 <ToastMsg />
             </div>
         );
