@@ -28,13 +28,13 @@ export const CardCurrency = () => {
         try{        
             if(moedaSelecionada === '' || moedaSelecionada === null){                
                 return handleClickErro('Selecione o tipo de moeda!'),
-                document.getElementById('currency').focus();            
+                document.getElementById('currency').focus();  
+                          
             }
-            if(moedaBValor == 0 || moedaBValor === ''){
+            if(moedaBValor === 0 || moedaBValor === '0' || moedaBValor === ''){
                 return handleClickErro('Preencha o campo com um valor válido!'),
                 document.getElementById('inputBValor').focus(),
                 setMoedaBValor('');
-                
             }
 
             handleClickSuccess("Moeda convertida com sucesso!");
@@ -97,7 +97,7 @@ export const CardCurrency = () => {
                 
                 <div className="resultado">
                     <h2>Resultado</h2>
-                {valorconvertido !== 0 && (                
+                {moedaBValor !== 0 && valorconvertido !== 0 &&(                
                     <Converted valorconvertido={valorconvertido} value={ask} name={name} />             
                 )}
                 </div>

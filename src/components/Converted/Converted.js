@@ -5,9 +5,9 @@ import './converted.scss';
 export const Converted = (props) =>{
     const date = new Date();
     let horas = `${date.getHours()}:${date.getMinutes()}`;
-    let data = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
+    let data = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`;
 
-    console.log(horas);
+    console.log(Intl.DateTimeFormat('pt-BR').format(date));
 
     return(
         <div className="content-converted">
