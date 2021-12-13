@@ -13,9 +13,9 @@ export const Converted = (props) =>{
         <div className="content-converted">
             <div>
                 <Label label="Data/hora" />
-                <InputText type="text" value={`${data}   ${horas}`}/>
+                <InputText type="text" id="inputDataHora" value={`${data}   ${horas}`}/>
                 <Label label={props.name} />
-                <InputText type="text" value={props.value}/>
+                <InputText type="text" id="inputMoeda" value={props.value}/>
                 <h2>Moeda convertida: {props.valorconvertido}</h2>
             </div>            
         </div>   

@@ -27,10 +27,14 @@ export const CardCurrency = () => {
     async function converter(){
         try{        
             if(moedaSelecionada === '' || moedaSelecionada === null){                
-                return handleClickErro('Selecione o tipo de moeda!');
+                return handleClickErro('Selecione o tipo de moeda!'),
+                document.getElementById('currency').focus();            
             }
-            if(moedaBValor === 0 || moedaBValor === ''){
-                return handleClickErro('Preencha o valor a ser convertido!');
+            if(moedaBValor == 0 || moedaBValor === ''){
+                return handleClickErro('Preencha o campo com um valor válido!'),
+                document.getElementById('inputBValor').focus(),
+                setMoedaBValor('');
+                
             }
 
             handleClickSuccess("Moeda convertida com sucesso!");
@@ -60,7 +64,7 @@ export const CardCurrency = () => {
             setLoading(false)
         }
 
-        loadingMoeda()    
+        loadingMoeda();
     },[]);    
 
     if(loading){
@@ -84,7 +88,7 @@ export const CardCurrency = () => {
                             })}                                                                       
                         </select> 
                             <Label label="Insira o valor a ser convertido:"/>
-                            <InputText type="number" onChange={({ target }) => setMoedaBValor(target.value)}/>                                          
+                            <InputText type="number" id="inputBValor" value={moedaBValor} onChange={({ target }) => setMoedaBValor(target.value)}/>                                          
                     </div>
                     <Button onClick={converter} label="Converter">
                         <Repeat className="icon-repeat"/>
